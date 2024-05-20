@@ -1,12 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import HeaderView1 from './views/HeaderView.vue';
+
 </script>
 
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Main</router-link>
-      <router-link to="/login">Login</router-link>
+      <HeaderView1/>
     </nav>
     <router-view></router-view>
   </div>
