@@ -1,109 +1,113 @@
 <template>
-    <div class="signup-container">
-        <h1>SignUp View</h1>
-        <hr class="divider" />
-        <form @submit.prevent="handleSubmit">
-            <!-- 이메일 입력 -->
-            <div>
-                <div class="form-group">
-                    <div class="label">
-                        <label for="email">이메일</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="email" v-model="email" placeholder="이메일을 입력하세요"
-                            :disabled="isCodeVerified" required />
-                    </div>
-                    <div class="button-group">
-                        <button type="button" class="secondary-button" @click="sendEmailVerification"
-                            :disabled="isCodeVerified">이메일 인증</button>
-                    </div>
-                </div>
-                <div v-if="emailError" class="error-message">
-                    {{ emailError }}
-                </div>
-                <div v-if="isVerificationSent" class="success-message">
-                    해당 이메일로 인증코드를 발송했습니다.
-                </div>
-            </div>
-
-            <!-- 인증 코드 입력 -->
-            <div>
-                <div class="form-group" v-if="isVerificationSent">
-                    <div class="label">
-                        <label for="verificationCode">인증 코드 입력</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="verificationCode" v-model="verificationCode" placeholder="인증 코드를 입력하세요"
-                            required />
-                    </div>
-                    <div class="button-group">
-                        <button type="button" class="secondary-button" @click="verifyCode">확인</button>
-                    </div>
-                </div>
-                <div v-if="!isCodeVerified && verificationError" class="error-message">
-                    인증 코드가 유효하지 않습니다.
-                </div>
-                <div v-if="isCodeVerified" class="success-message">
-                    이메일 인증에 성공했습니다.
-                </div>
-            </div>
-
-            <!-- 비밀번호 입력 -->
-            <div>
-                <div class="form-group">
-                    <div class="label">
-                        <label for="password">비밀번호</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="password" v-model="password" placeholder="비밀번호를 입력하세요" required />
-                    </div>
-                </div>
-                <div v-if="isPasswordError" class="error-message">{{ passwordError }}</div>
-            </div>
-           
-            <!-- 비밀번호 확인 -->
-            <div>
-                <div class="form-group">
-                    <div class="label">
-                        <label for="confirmPassword">비밀번호 확인</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="confirmPassword" v-model="confirmPassword"
-                            placeholder="비밀번호를 다시 입력하세요" required />
-                    </div>
-                </div>
-                <div v-if="password !== confirmPassword && confirmPassword !== ''" class="error-message">
-                    비밀번호가 일치하지 않습니다.
-                </div>
-            </div>
-
-            <!-- 닉네임 입력 -->
-            <div>
-                <div class="form-group">
-                    <div class="label">
-                        <label for="nickname">닉네임</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="nickname" v-model="nickname" placeholder="닉네임을 입력하세요" required />
-                    </div>
-                    <div class="button-group">
-                        <button type="button" class="secondary-button" @click="checkNickname">닉네임 중복확인</button>
-                    </div>
-                </div>
-            </div>
-            <div :class="{ 'success-message': isUniqueNickname, 'error-message': !isUniqueNickname }"
-                v-if="nicknameChecked">
-                {{ nicknameMessage }}
-            </div>
-
-            <!-- 회원가입 버튼 -->
-            <button type="submit" class="primary-button" @click.prevent="handleSubmit">회원가입</button>
+    <div class="page-container">
+        <div class="signup-container">
+            <h1>SignUp View</h1>
             <hr class="divider" />
-            <div class="login-link">
-                이미 아이디가 있으신가요? <router-link to="/signin" class="signin-link">로그인</router-link>
-            </div>
-        </form>
+            <form @submit.prevent="handleSubmit">
+                <!-- 이메일 입력 -->
+                <div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label for="email">이메일</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" v-model="email" placeholder="이메일을 입력하세요"
+                                :disabled="isCodeVerified" required />
+                        </div>
+                        <div class="button-group">
+                            <button type="button" class="secondary-button" @click="sendEmailVerification"
+                                :disabled="isCodeVerified">이메일 인증</button>
+                        </div>
+                    </div>
+                    <div v-if="emailError" class="error-message">
+                        {{ emailError }}
+                    </div>
+                    <div v-if="isVerificationSent" class="success-message">
+                        해당 이메일로 인증코드를 발송했습니다.
+                    </div>
+                </div>
+
+                <!-- 인증 코드 입력 -->
+                <div>
+                    <div class="form-group" v-if="isVerificationSent">
+                        <div class="label">
+                            <label for="verificationCode">인증 코드 입력</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="verificationCode" v-model="verificationCode"
+                                placeholder="인증 코드를 입력하세요" required />
+                        </div>
+                        <div class="button-group">
+                            <button type="button" class="secondary-button" @click="verifyCode">확인</button>
+                        </div>
+                    </div>
+                    <div v-if="!isCodeVerified && verificationError" class="error-message">
+                        인증 코드가 유효하지 않습니다.
+                    </div>
+                    <div v-if="isCodeVerified" class="success-message">
+                        이메일 인증에 성공했습니다.
+                    </div>
+                </div>
+
+                <!-- 비밀번호 입력 -->
+                <div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label for="password">비밀번호</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="password" v-model="password" placeholder="비밀번호를 입력하세요"
+                                required />
+                        </div>
+                    </div>
+                    <div v-if="isPasswordError" class="error-message">{{ passwordError }}</div>
+                </div>
+
+                <!-- 비밀번호 확인 -->
+                <div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label for="confirmPassword">비밀번호 확인</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="confirmPassword" v-model="confirmPassword"
+                                placeholder="비밀번호를 다시 입력하세요" required />
+                        </div>
+                    </div>
+                    <div v-if="password !== confirmPassword && confirmPassword !== ''" class="error-message">
+                        비밀번호가 일치하지 않습니다.
+                    </div>
+                </div>
+
+                <!-- 닉네임 입력 -->
+                <div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label for="nickname">닉네임</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="nickname" v-model="nickname" placeholder="닉네임을 입력하세요" required />
+                        </div>
+                        <div class="button-group">
+                            <button type="button" class="secondary-button" @click="checkNickname">닉네임 중복확인</button>
+                        </div>
+                    </div>
+                </div>
+                <div :class="{ 'success-message': isUniqueNickname, 'error-message': !isUniqueNickname }"
+                    v-if="nicknameChecked">
+                    {{ nicknameMessage }}
+                </div>
+
+                <!-- 회원가입 버튼 -->
+                <button type="submit" class="primary-button" @click.prevent="handleSubmit">회원가입</button>
+                <hr class="divider" />
+                <div class="login-link">
+                    이미 아이디가 있으신가요? <router-link to="/signin" class="signin-link">로그인</router-link>
+                </div>
+            </form>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -154,6 +158,11 @@ export default {
     },
     methods: {
         sendEmailVerification() {
+            if (!this.email) {
+                this.emailError = '이메일을 입력해주세요.';
+                return;
+            }
+
             fetch(`http://localhost:8080/user/send-email/${this.email}`)
                 .then(response => {
                     if (response.ok) {
@@ -278,10 +287,16 @@ export default {
 };
 </script>
 
-
-
-
 <style scoped>
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+    width: 100vw;
+}
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -291,7 +306,7 @@ export default {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    margin: 0 auto;
+    margin-top: -100px;
 }
 
 form {
@@ -385,14 +400,12 @@ button[type="submit"] {
     font-size: 0.7em;
     color: #28a745;
     margin-top: -15px;
-    margin-left: 125px;
     margin-bottom: 5px;
 }
 
 .error-message {
     font-size: 0.7em;
     color: red;
-    margin-left: 125px;
     margin-top: -15px;
     margin-bottom: 5px;
 }
