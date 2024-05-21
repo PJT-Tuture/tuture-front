@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h1>Login View</h1>
+        <h1>Board List View</h1>
     </div>
 </template>
 <script>
     export default {
-  name: 'LoginView'
+  name: 'BoardListView'
 }
 </script>
 <style scoped>
