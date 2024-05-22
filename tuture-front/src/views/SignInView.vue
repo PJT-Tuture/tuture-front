@@ -177,7 +177,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #ffffff;
     width: 100vw;
 }
@@ -193,7 +193,7 @@ export default {
     max-width: 500px;
     width: 100%;
     box-sizing: border-box;
-    margin-top: -200px;
+    margin-top: -90px;
 }
 
 h2 {
