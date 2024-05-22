@@ -15,7 +15,13 @@
                 <div class="form-group">
                     <label for="password" class="label">비밀번호</label>
                     <div class="input-group">
-                        <input type="password" id="password" v-model="password" placeholder="비밀번호를 입력하세요" required />
+                        <input
+                            type="password"
+                            id="password"
+                            v-model="password"
+                            placeholder="비밀번호를 입력하세요"
+                            required
+                        />
                     </div>
                 </div>
                 <!-- 에러 메시지 -->
@@ -24,11 +30,12 @@
                 <button type="submit" class="primary-button">로그인</button>
             </form>
             <hr class="divider" />
-            <div class="signup-link" style="margin-top: -10px;">
+            <div class="signup-link" style="margin-top: -10px">
                 계정이 없으신가요? <router-link to="/signup" class="signin-link">회원가입</router-link>
             </div>
             <div class="signup-link">
-                비밀번호를 잊으셨나요? <a href="#" class="signin-link" @click.prevent="showForgotPasswordModal">비밀번호 찾기</a>
+                비밀번호를 잊으셨나요?
+                <a href="#" class="signin-link" @click.prevent="showForgotPasswordModal">비밀번호 찾기</a>
             </div>
         </div>
         <div v-if="isForgotPasswordModalVisible" class="modal">
@@ -39,13 +46,23 @@
                     <div class="form-group">
                         <label for="forgotEmail" class="label">이메일</label>
                         <div class="input-group">
-                            <input type="email" id="forgotEmail" v-model="forgotEmail" placeholder="이메일을 입력하세요" required />
+                            <input
+                                type="email"
+                                id="forgotEmail"
+                                v-model="forgotEmail"
+                                placeholder="이메일을 입력하세요"
+                                required
+                            />
                         </div>
                     </div>
-                    <div v-if="modalMessage" :class="{'success-message': modalSuccess, 'error-message': !modalSuccess}">{{ modalMessage }}</div>
+                    <div
+                        v-if="modalMessage"
+                        :class="{ 'success-message': modalSuccess, 'error-message': !modalSuccess }"
+                    >
+                        {{ modalMessage }}
+                    </div>
                     <button type="submit" class="primary-button">비밀번호 재설정 링크 보내기</button>
                 </form>
-                
             </div>
         </div>
     </div>
@@ -79,21 +96,25 @@ export default {
                 },
                 body: JSON.stringify(loginData),
             })
-                .then(response => {
+                .then((response) => {
                     if (response.ok) {
                         return response.json();
                     } else {
-                        return response.text().then(text => {
+                        return response.text().then((text) => {
                             throw new Error(text);
                         });
                     }
                 })
-                .then(data => {
+                .then((data) => {
+                    this.$cookies.set('user_id', data.userId, '1h');
                     this.$cookies.set('access_token', data.access_token, '1h');
+                    this.$cookies.set('email', data.email, '1h');
+                    this.$cookies.set('nickname', data.nickname, '1h');
+
                     alert('로그인에 성공하였습니다.');
                     window.location.href = 'http://localhost:5173/board-list';
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Error during login:', error);
                     this.errorMessage = '로그인에 실패하였습니다. 이메일과 비밀번호를 확인해주세요.';
                 });
@@ -113,18 +134,18 @@ export default {
                 },
                 body: JSON.stringify(forgotPasswordData),
             })
-                .then(response => {
+                .then((response) => {
                     if (response.ok) {
                         this.modalSuccess = true;
                         this.modalMessage = '비밀번호 재설정 링크가 이메일로 전송되었습니다.';
                         this.forgotEmail = '';
                     } else {
-                        return response.text().then(text => {
+                        return response.text().then((text) => {
                             throw new Error(text);
                         });
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Error during forgot password:', error);
                     this.modalSuccess = false;
                     this.modalMessage = '비밀번호 재설정 링크를 보내는 데 실패하였습니다. 이메일을 확인해주세요.';
@@ -145,8 +166,8 @@ export default {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -263,7 +284,7 @@ button {
     background-color: #a5a39c;
 }
 
-button[type="submit"] {
+button[type='submit'] {
     margin-top: 20px;
 }
 
