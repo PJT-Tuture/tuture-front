@@ -24,8 +24,28 @@
                 <button type="submit" class="primary-button">로그인</button>
             </form>
             <hr class="divider" />
-            <div class="signup-link">
+            <div class="signup-link" style="margin-top: -10px;">
                 계정이 없으신가요? <router-link to="/signup" class="signin-link">회원가입</router-link>
+            </div>
+            <div class="signup-link">
+                비밀번호를 잊으셨나요? <a href="#" class="signin-link" @click.prevent="showForgotPasswordModal">비밀번호 찾기</a>
+            </div>
+        </div>
+        <div v-if="isForgotPasswordModalVisible" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="isForgotPasswordModalVisible = false">&times;</span>
+                <h2>비밀번호 찾기</h2>
+                <form @submit.prevent="handleForgotPassword">
+                    <div class="form-group">
+                        <label for="forgotEmail" class="label">이메일</label>
+                        <div class="input-group">
+                            <input type="email" id="forgotEmail" v-model="forgotEmail" placeholder="이메일을 입력하세요" required />
+                        </div>
+                    </div>
+                    <div v-if="modalMessage" :class="{'success-message': modalSuccess, 'error-message': !modalSuccess}">{{ modalMessage }}</div>
+                    <button type="submit" class="primary-button">비밀번호 재설정 링크 보내기</button>
+                </form>
+                
             </div>
         </div>
     </div>
@@ -38,7 +58,11 @@ export default {
         return {
             email: '',
             password: '',
+            forgotEmail: '',
             errorMessage: '',
+            isForgotPasswordModalVisible: false,
+            modalMessage: '',
+            modalSuccess: false,
         };
     },
     methods: {
@@ -65,6 +89,7 @@ export default {
                     }
                 })
                 .then(data => {
+                    this.$cookies.set('access_token', data.access_token, '1h');
                     alert('로그인에 성공하였습니다.');
                     window.location.href = 'http://localhost:5173/board-list';
                 })
@@ -73,11 +98,81 @@ export default {
                     this.errorMessage = '로그인에 실패하였습니다. 이메일과 비밀번호를 확인해주세요.';
                 });
         },
+        showForgotPasswordModal() {
+            this.isForgotPasswordModalVisible = true;
+        },
+        handleForgotPassword() {
+            const forgotPasswordData = {
+                email: this.forgotEmail,
+            };
+
+            fetch('http://localhost:8080/user/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(forgotPasswordData),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        this.modalSuccess = true;
+                        this.modalMessage = '비밀번호 재설정 링크가 이메일로 전송되었습니다.';
+                        this.forgotEmail = '';
+                    } else {
+                        return response.text().then(text => {
+                            throw new Error(text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during forgot password:', error);
+                    this.modalSuccess = false;
+                    this.modalMessage = '비밀번호 재설정 링크를 보내는 데 실패하였습니다. 이메일을 확인해주세요.';
+                });
+        },
     },
 };
 </script>
 
 <style scoped>
+/* 모달 스타일 추가 */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-width: 500px;
+    min-width: 300px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .page-container {
     display: flex;
     justify-content: center;
@@ -180,6 +275,7 @@ button[type="submit"] {
 
 .signup-link {
     font-size: 0.9em;
+    margin-top: 5px;
 }
 
 .signin-link {
