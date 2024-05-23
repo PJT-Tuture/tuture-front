@@ -12,7 +12,7 @@ import BoardDetail from '@/views/BoardDetail.vue';
 import RegistBoard from '@/views/RegistBoard.vue';
 import EditBoard from '@/views/EditBoard.vue';
 import DeleteBoard from '@/views/DeleteBoard.vue';
-EditPassword;
+import UpdateBoard from '@/views/UpdateBoard.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
