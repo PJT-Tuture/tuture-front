@@ -8,7 +8,6 @@
         </div>
         <div class="button-group2">
             <button @click="toggleTechStack">기술 스택</button>
-            <button>포지션</button>
         </div>
         <TechStack v-if="showTechStack" @select-tag="selectTag" />
         <div class="navbar-search">
