@@ -20,7 +20,6 @@
           <div><i class="fas fa-user"></i> {{ nickname }}</div>
           <div v-if="showDropdown" class="dropdown-menu">
             <router-link to="/my-posts">내 작성글</router-link>
-            <router-link to="/my-requests">내 신청글</router-link>
             <router-link to="/my-info">내 정보</router-link>
           </div>
         </div>
@@ -58,7 +57,7 @@ export default {
             'X-AUTH-TOKEN': token
           }
         });
-        this.nickname = response.data.nickname; // 응답에 nickname 필드가 있다고 가정
+        this.nickname = response.data.nickname;
       } catch (error) {
         console.error('사용자 정보를 가져오는데 실패했습니다:', error);
         console.error('오류 응답:', error.response);
@@ -79,6 +78,7 @@ export default {
 
 <style scoped>
 .not-signin-bar, .signin-bar {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
@@ -93,6 +93,7 @@ export default {
 .not-signin-right, .signin-right {
   display: flex;
   gap: 15px;
+  
 }
 
 .not-signin-left a, .signin-left a {

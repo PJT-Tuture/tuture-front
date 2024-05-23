@@ -292,7 +292,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #ffffff;
     width: 100vw;
 }
@@ -305,8 +305,8 @@ export default {
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin-top: -100px;
+    max-width: 800px;
+    margin-top: -90px;
 }
 
 form {
