@@ -22,6 +22,7 @@ import FooterView from './views/FooterView.vue';
 
 <style>
 #app {
+  width: 100%;
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

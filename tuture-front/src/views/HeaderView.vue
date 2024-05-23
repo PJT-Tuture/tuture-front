@@ -78,7 +78,7 @@ export default {
 
 <style scoped>
 .not-signin-bar, .signin-bar {
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
@@ -93,6 +93,7 @@ export default {
 .not-signin-right, .signin-right {
   display: flex;
   gap: 15px;
+  
 }
 
 .not-signin-left a, .signin-left a {

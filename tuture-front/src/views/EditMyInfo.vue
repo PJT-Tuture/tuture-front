@@ -39,7 +39,8 @@ export default {
       nicknameMessage: '',
       isUniqueNickname: false,
       nicknameChecked: false,
-      defaultProfileImage: '/path/to/default/profile/image.png' // 기본 프로필 이미지 경로를 여기에 설정하세요.
+      defaultProfileImage: '/path/to/default/profile/image.png',
+      file: null,
     };
   },
   created() {
@@ -70,14 +71,14 @@ export default {
   },
   methods: {
     onFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.profilePicture = file;
+      this.file = event.target.files[0];
+      if (this.file) {
+        this.profilePicture = this.file;
         const reader = new FileReader();
         reader.onload = (e) => {
           this.previewImage = e.target.result;
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(this.file);
       }
     },
     async checkNickname() {
@@ -99,30 +100,35 @@ export default {
       }
     },
     async submitForm() {
+      let formData = new FormData();
+
       if (!this.isSubmitDisabled || this.isProfileChanged) {
         const payload = {
           nickname: this.nickname,
-          profile_img: this.previewImage,
+          profile_img: this.file.name,
         };
 
-        try {
-          const response = await axios.put('http://localhost:8080/user/basic', payload, {
-            headers: {
-              'X-AUTH-TOKEN': this.accessToken,
-            }
-          });
+        let json = JSON.stringify(payload);
+        formData.append("json", new Blob([json], { type: 'application/json' }));
+        formData.append("profileImg", this.file);
+
+        const response = await axios.put('http://localhost:8080/user/basic', formData, {
+          headers: {
+            'X-AUTH-TOKEN': this.accessToken,
+            'Content-Type': 'multipart/form-data',
+          }
+        });
+
+        if (response.data) {
           alert('프로필이 성공적으로 업데이트되었습니다.');
-          
-        } catch (error) {
-          console.error('프로필 업데이트 중 오류가 발생했습니다:', error);
-          alert('프로필 업데이트 중 오류가 발생했습니다.');
+        } else {
+          alert('실패');
         }
-      } else {
-        alert('닉네임 중복 확인이 필요합니다.');
+
+
       }
     }
-  }
-};
+  }};
 </script>
 
 <style scoped>

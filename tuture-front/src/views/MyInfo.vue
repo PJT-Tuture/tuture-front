@@ -14,7 +14,8 @@
         <hr class="divider">
       </div>
       <div v-else>
-        <p>사용자 정보를 불러오는 중...</p>
+        <p>로그인 하세요~</p>
+        <router-link to="/signin">재로그인</router-link>
       </div>
     </div>
   </div>
