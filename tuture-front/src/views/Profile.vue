@@ -28,13 +28,15 @@ export default {
 .fixed-sidebar {
   position: fixed;
   top: 50%;
-  left: 30px;
+  left: 20px;
   transform: translateY(-50%);
-  padding: 0;
-  background-color: white;
-  border: 2px solid #ffd600;
+  width: 15%;
+  /* height: 50%; */
+  background: #f0e15e;
+  color: white;
+  padding: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .fixed-sidebar ul {
@@ -44,40 +46,22 @@ export default {
 }
 
 .fixed-sidebar li {
-  margin: 0;
+  margin-bottom: 15px;
 }
 
-.fixed-sidebar li a {
-  display: block;
-  padding: 15px 20px;
+.fixed-sidebar a {
+  color: white;
   text-decoration: none;
-  font-size: 14px;
-  text-align: center;
-  color: black;
-  background-color: white;
+  font-size: 18px;
 }
 
-.fixed-sidebar li a:hover,
-.fixed-sidebar li a:focus {
-  background-color: #ffd600;
-}
-
-.fixed-sidebar .delete-account a {
-  background-color: #ffd600;
-}
-
-.fixed-sidebar .delete-account a:hover,
-.fixed-sidebar .delete-account a:focus {
-  background-color: #ffd600;
+.fixed-sidebar a:hover {
+  text-decoration: underline;
 }
 
 .content {
-  display: flex;
   margin-left: 180px;
   padding: 20px;
   flex-grow: 1;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
 }
 </style>
