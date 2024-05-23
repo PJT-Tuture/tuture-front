@@ -78,6 +78,7 @@ export default {
 
 <style scoped>
 .not-signin-bar, .signin-bar {
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;

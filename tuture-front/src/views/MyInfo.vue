@@ -6,10 +6,12 @@
         <div class="profile-image-container">
           <img :src="profileImage" alt="프로필 이미지" />
         </div>
+        <hr class="divider">
         <div class="user-data">
           <p><strong>이메일:</strong> {{ email }}</p>
           <p><strong>닉네임:</strong> {{ nickname }}</p>
         </div>
+        <hr class="divider">
       </div>
       <div v-else>
         <p>사용자 정보를 불러오는 중...</p>
@@ -68,19 +70,18 @@ export default {
 }
 
 .user-info-container {
-  max-width: 500px;
+  width: 40vw;
   margin: 20px;
-  padding: 30px;
+  padding: 50px;
   background: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 h1 {
   font-size: 28px;
   color: #4a4a4a;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -93,7 +94,7 @@ h1 {
 }
 
 .profile-image-container {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .profile-image-container img {
@@ -101,7 +102,6 @@ h1 {
   height: 150px;
   border-radius: 50%;
   border: 5px solid #f0f0f0;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
 }
 
@@ -109,12 +109,16 @@ h1 {
   transform: scale(1.05);
 }
 
+.divider {
+  width: 100%;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
 .user-data {
   width: 100%;
-  background: #fafafa;
+  background: #ffffff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 .user-data p {

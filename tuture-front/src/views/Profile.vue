@@ -30,10 +30,11 @@ export default {
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  width: 150px;
+  width: 15%;
+  /* height: 50%; */
   background: #f0e15e;
   color: white;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
