@@ -118,8 +118,8 @@ export default {
         async submitForm() {
             try {
                 const token = this.$cookies.get('access_token');
-                const writerId = this.$cookies.get('user_id');
-                const writerNickname = this.$cookies.get('nickname');
+                const writerId = this.$cookies.get('userId');
+                const writerNickname = this.$cookies.get('writerNickname');
                 const payload = {
                     title: this.form.title,
                     writerId: writerId,

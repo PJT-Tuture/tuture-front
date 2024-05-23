@@ -89,7 +89,10 @@ export default {
                     }
                 })
                 .then(data => {
+                    console.log(data);
+                    this.$cookies.set('userId',data.userId,'1h');
                     this.$cookies.set('access_token', data.access_token, '1h');
+                    this.$cookies.set('writerNickname', data.nickname, '1h');
                     alert('로그인에 성공하였습니다.');
                     window.location.href = 'http://localhost:5173/board-list';
                 })

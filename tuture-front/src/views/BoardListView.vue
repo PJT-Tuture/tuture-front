@@ -1,11 +1,12 @@
 <template>
     <div class="board-container">
         <div class="button-group">
-            <button>멘토</button>
-            <button>멘티</button>
-            <button>프로젝트</button>
-            <button>스터디</button>
+            <button :class="{ active: selectedRole === '멘토' }" @click="toggleRole('멘토')">멘토</button>
+            <button :class="{ active: selectedRole === '멘티' }" @click="toggleRole('멘티')">멘티</button>
+            <button :class="{ active: selectedRole === '프로젝트' }" @click="toggleRole('프로젝트')">프로젝트</button>
+            <button :class="{ active: selectedRole === '스터디' }" @click="toggleRole('스터디')">스터디</button>
         </div>
+
         <div class="button-group2">
             <button @click="toggleTechStack">기술 스택</button>
         </div>
@@ -50,27 +51,33 @@ export default {
         const showTechStack = ref(false);
         const boards = ref([]);
         const selectedTags = ref([]);
+        const selectedRole = ref('');
 
-        const fetchBoards = async (tags = []) => {
+        const fetchBoards = async (tags = [], role = '') => {
             try {
-                console.log('Fetching boards with tags:', tags);
+                console.log('Fetching boards with tags:', tags, 'and role:', role);
                 let response;
-                if (tags.length === 0) {
+                if (tags.length === 0 && !role) {
                     response = await axios.get('http://localhost:8080/board');
                 } else {
-                    response = await axios.get(`http://localhost:8080/board/tags`, {
+                    response = await axios.get(`http://localhost:8080/board/filter`, {
                         params: {
-                            tagIds: tags,
+                            tagIds: tags.length ? tags : [],
+                            roleCategory: role || '',
                         },
                         paramsSerializer: (params) => {
                             return Object.keys(params)
                                 .map((key) => {
-                                    return `${key}=${encodeURIComponent(params[key])}`;
+                                    const value = Array.isArray(params[key])
+                                ? params[key].join(',')
+                                : params[key];
+                            return `${key}=${encodeURIComponent(value)}`;
                                 })
                                 .join('&');
                         },
                     });
                 }
+                console.log('Boards fetched:', response.data);
                 boards.value = response.data;
             } catch (error) {
                 console.error('Error fetching boards:', error);
@@ -87,7 +94,16 @@ export default {
             } else {
                 selectedTags.value = selectedTags.value.filter((id) => id !== tagId);
             }
-            fetchBoards(selectedTags.value);
+            fetchBoards(selectedTags.value, selectedRole.value);
+        };
+
+        const toggleRole = (role) => {
+            if (selectedRole.value === role) {
+                selectedRole.value = '';
+            } else {
+                selectedRole.value = role;
+            }
+            fetchBoards(selectedTags.value, selectedRole.value);
         };
 
         onMounted(() => {
@@ -99,6 +115,8 @@ export default {
             boards,
             toggleTechStack,
             selectTag,
+            toggleRole,
+            selectedRole,
         };
     },
 };
