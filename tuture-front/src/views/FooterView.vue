@@ -10,7 +10,6 @@
   </template>
   
   <script setup>
-  // 특별한 스크립트 설정이 필요하지 않다면 비워둡니다.
   </script>
   
   <style>
