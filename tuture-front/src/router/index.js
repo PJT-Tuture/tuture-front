@@ -10,7 +10,7 @@ import EditMyInfo from '@/views/EditMyInfo.vue';
 import EditPassword from '@/views/EditPassword.vue';
 import BoardDetail from '@/views/BoardDetail.vue';
 import RegistBoard from '@/views/RegistBoard.vue';
-import UpdateBoard from '@/views/UpdateBoard.vue';
+import EditBoard from '@/views/EditBoard.vue';
 import DeleteBoard from '@/views/DeleteBoard.vue';
 EditPassword;
 
@@ -49,9 +49,9 @@ const router = createRouter({
             props: true,
         },
         {
-            path: '/update/:id',
-            name: 'UpdateBoard',
-            component: UpdateBoard,
+            path: '/edit/:id',
+            name: 'EditBoard',
+            component: EditBoard,
             props: true,
         },
         {
