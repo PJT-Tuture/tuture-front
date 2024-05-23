@@ -77,8 +77,6 @@ export default {
   background: #ffffff;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
 h1 {
