@@ -8,7 +8,7 @@ import MyInfo from "@/views/MyInfo.vue";
 import Profile from "@/views/Profile.vue";
 import EditMyInfo from "@/views/EditMyInfo.vue";
 import EditPassword from "@/views/EditPassword.vue";
-EditPassword;
+import BoardDetail from "@/views/BoardDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +22,12 @@ const router = createRouter({
       path: "/signin",
       name: "Signin",
       component: Signin,
+    },
+    {
+      path: '/board/:id',
+      name: 'BoardDetail',
+      component: BoardDetail,
+      props: true,
     },
     {
       path: "/signup",
