@@ -11,6 +11,7 @@ import EditPassword from '@/views/EditPassword.vue';
 import BoardDetail from '@/views/BoardDetail.vue';
 import RegistBoard from '@/views/RegistBoard.vue';
 import UpdateBoard from '@/views/UpdateBoard.vue';
+import DeleteBoard from '@/views/DeleteBoard.vue';
 EditPassword;
 
 const router = createRouter({
@@ -40,6 +41,12 @@ const router = createRouter({
             path: '/regist',
             name: 'RegistBoard',
             component: RegistBoard,
+        },
+        {
+            path: '/delete/:id',
+            name: 'DeleteBoard',
+            component: DeleteBoard,
+            props: true,
         },
         {
             path: '/update/:id',
