@@ -81,7 +81,6 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
   background-color: #f8f9fa; /* 배경 색상 */
   color: #333333; /* 텍스트 색상 */
   align-items: center;
@@ -93,7 +92,7 @@ export default {
 .not-signin-right, .signin-right {
   display: flex;
   gap: 15px;
-  
+  margin: 10px 20px;
 }
 
 .not-signin-left a, .signin-left a {
