@@ -11,7 +11,6 @@ import EditPassword from '@/views/EditPassword.vue';
 import BoardDetail from '@/views/BoardDetail.vue';
 import RegistBoard from '@/views/RegistBoard.vue';
 import UpdateBoard from '@/views/UpdateBoard.vue';
-EditPassword;
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
