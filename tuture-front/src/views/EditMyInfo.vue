@@ -1,27 +1,29 @@
 <template>
   <div class="edit-my-info">
-    <h1>프로필 수정</h1>
-    <div class="profile-container">
-      <input type="file" id="profilePicture" @change="onFileChange" class="file-input">
-      <label for="profilePicture" class="profile-label">
-        <img :src="previewImage || defaultProfileImage" alt="Profile Preview" class="profile-preview">
-        <div class="camera-icon">📷</div>
-      </label>
-    </div>
-    <hr class="divider">
-
-    <form @submit.prevent="submitForm" class="form-container">
-      <div class="form-group">
-        <label for="nickname" class="form-label">닉네임</label>
-        <input type="text" id="nickname" v-model="nickname" class="form-input" placeholder="닉네임을 입력하세요.">
-        <button type="button" class="check-button" @click="checkNickname">중복확인</button>
-      </div>
-      <div v-if="nicknameChecked">
-        {{ nicknameMessage }}
+    <div class="container">
+      <h1>프로필 수정</h1>
+      <div class="profile-container">
+        <input type="file" id="profilePicture" @change="onFileChange" class="file-input">
+        <label for="profilePicture" class="profile-label">
+          <img :src="previewImage || defaultProfileImage" alt="Profile Preview" class="profile-preview">
+          <div class="camera-icon">📷</div>
+        </label>
       </div>
       <hr class="divider">
-      <button type="submit" class="submit-button" :disabled="isSubmitDisabled">개인정보 수정</button>
-    </form>
+
+      <form @submit.prevent="submitForm" class="form-container">
+        <div class="form-group">
+          <label for="nickname" class="form-label">닉네임</label>
+          <input type="text" id="nickname" v-model="nickname" class="form-input" placeholder="닉네임을 입력하세요.">
+          <button type="button" class="check-button" @click="checkNickname">중복확인</button>
+        </div>
+        <div v-if="nicknameChecked">
+          {{ nicknameMessage }}
+        </div>
+        <hr class="divider">
+        <button type="submit" class="submit-button" :disabled="isSubmitDisabled">개인정보 수정</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -133,12 +135,18 @@ export default {
 
 <style scoped>
 .edit-my-info {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.container {
+  padding: 40px;
   background-color: #fff;
   border-radius: 10px;
   text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -187,7 +195,6 @@ h1 {
 .form-group {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .form-label {
@@ -199,7 +206,7 @@ h1 {
 .form-input {
   flex-grow: 1;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-right: 10px;
